@@ -2,7 +2,7 @@
 
 julia_version = "1.12.6"
 manifest_format = "2.0"
-project_hash = "425f216213958681916a930d7cf5ff56d68bf94d"
+project_hash = "4656758971aabf160f5bd599761aa3d1a85c3957"
 
 [[deps.AliasTables]]
 deps = ["PtrArrays", "Random"]
@@ -96,6 +96,7 @@ uuid = "d38c429a-6771-53c6-b99e-75d170b6e991"
 version = "0.6.3"
 
 [[deps.DN1]]
+deps = ["LinearAlgebra", "Plots"]
 path = "."
 uuid = "1caeeffb-e5f5-4802-81de-b5003ebdce4f"
 version = "0.1.0"

@@ -96,6 +96,7 @@ uuid = "d38c429a-6771-53c6-b99e-75d170b6e991"
 version = "0.6.3"
 
 [[deps.DN1]]
+deps = ["LinearAlgebra", "Plots"]
 path = "DN1"
 uuid = "1caeeffb-e5f5-4802-81de-b5003ebdce4f"
 version = "0.1.0"

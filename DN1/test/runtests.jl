@@ -1,4 +1,5 @@
 using DN1, Test
+using Plots
 
 @testset "Zlepek in vrednost" begin
   # ročno izračunan zlepek za točke (0,0), (1,1), (2,0)
@@ -88,4 +89,12 @@ end
   @test_throws ArgumentError interpoliraj([1.0, 2.0], [3.0])
   # neurejen x
   @test_throws ArgumentError interpoliraj([2.0, 1.0], [3.0, 4.0])
+end
+
+@testset "plot recept" begin
+  Z = interpoliraj([0.0, 1.0, 2.0, 3.0], [0.0, 1.0, 0.0, 1.0])
+  p = plot(Z)
+  @test p isa Plots.Plot
+  # zlepek s tremi odseki ustvari tri serije
+  @test length(p.series_list) == 3
 end

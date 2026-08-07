@@ -1,6 +1,7 @@
 module DN1
 
 using LinearAlgebra
+using Plots
 
 export Zlepek, vrednost, interpoliraj
 
@@ -91,6 +92,28 @@ function interpoliraj(x, y)
   d = (M[2:n] - M[1:n-1]) ./ (6 .* h)
 
   return Zlepek(x, a, b, c, d)
+end
+
+"""
+    plot(Z::Zlepek)
+
+Recept za risanje zlepka `Z`. Vsak odsek `[x_i, x_{i+1}]` nariše kot
+svojo serijo, barve pa se izmenjujejo: lihi odseki so rdeči,
+sodi modri. Uporablja se prek `plot(Z)` oziroma `plot!(Z)`.
+"""
+@recipe function f(Z::Zlepek)
+  # nastavitve, skupne vsem serijam
+  legend --> false
+  for i in 1:length(Z.x)-1
+    # gosta mreža točk znotraj odseka i
+    t = range(Z.x[i], Z.x[i+1], length = 50)
+    barva = isodd(i) ? :red : :blue
+    @series begin
+      color := barva
+      label := ""
+      t, [vrednost(Z, tj) for tj in t]
+    end
+  end
 end
 
 end # module DN1

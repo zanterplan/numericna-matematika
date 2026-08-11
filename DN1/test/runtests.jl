@@ -1,7 +1,7 @@
 using DN1, Test
 using Plots
 
-@testset "Zlepek in vrednost" begin
+@testset "zlepek in vrednost" begin
   # ročno izračunan zlepek za točke (0,0), (1,1), (2,0)
   Z = Zlepek([0.0, 1.0, 2.0],
              [0.0, 1.0],
@@ -72,7 +72,7 @@ end
 end
 
 @testset "interpoliraj: dve točki" begin
-  # dve točki dasta premico skozi obe
+  # dve točki data premico skozi obe
   Z = interpoliraj([1.0, 3.0], [2.0, 6.0])
   @test vrednost(Z, 1.0) ≈ 2.0
   @test vrednost(Z, 3.0) ≈ 6.0

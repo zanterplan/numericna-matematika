@@ -27,7 +27,7 @@ end
 """
     y = vrednost(Z, x)
 
-Izračunaj vrednost zlepka `Z` v točki `x`. Točka `x` mora ležati
+Izračuna vrednost zlepka `Z` v točki `x`. Točka `x` mora ležati
 na interpolacijskem intervalu `[x_1, x_n]`, sicer funkcija sproži napako.
 """
 function vrednost(Z::Zlepek, x)
@@ -47,7 +47,7 @@ end
 """
     Z = interpoliraj(x, y)
 
-Izračunaj naravni kubični zlepek skozi točke `(x[i], y[i])` in vrni
+Izračuna naravni kubični zlepek skozi točke `(x[i], y[i])` in vrni
 element tipa `Zlepek`. Uporabi metodo momentov `M_i = S''(x_i)`, kjer
 naravna pogoja postavita `M_1 = M_n = 0`, notranje momente pa dobimo
 kot rešitev tridiagonalnega sistema.

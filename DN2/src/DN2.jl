@@ -1,6 +1,6 @@
 module DN2
 
-export gauss2, sestavljeno
+export gauss2, sestavljeno, integral
 
 """
     gauss2(f, a, b)
@@ -31,6 +31,29 @@ function sestavljeno(f, a, b, N)
     vsota += gauss2(f, a + k * h, a + (k + 1) * h)
   end
   vsota
+end
+
+"""
+    integral(f, a, b; tol=1e-10)
+
+Izračuna približek za integral funkcije `f` na intervalu `[a, b]` s
+podvajanjem števila podintervalov, dokler ocena napake ne pade pod `tol`.
+"""
+function integral(f, a, b; tol=1e-10)
+  Nmax = 10^6
+  N = 2
+  Q_N = sestavljeno(f, a, b, N)
+  while 2 * N <= Nmax
+    Q_2N = sestavljeno(f, a, b, 2 * N)
+    # metoda je reda 4
+    ocena = (Q_2N - Q_N) / 15
+    N *= 2
+    Q_N = Q_2N
+    if abs(ocena) < tol
+      return Q_2N
+    end
+  end
+  Q_N
 end
 
 end # module DN2

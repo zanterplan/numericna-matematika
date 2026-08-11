@@ -35,3 +35,20 @@ end
   razmerje = e1 / e2
   @test 10 < razmerje < 20
 end
+
+@testset "integral: samodejna natančnost" begin
+  # analitično znani integrali
+  @test integral(exp, 0, 1) ≈ exp(1) - 1 atol = 1e-9
+  @test integral(sin, 0, pi) ≈ 2 atol = 1e-9
+  @test integral(x -> x^3, 0, 2) ≈ 4 atol = 1e-9
+
+  # privzeti tol da vsaj 10 decimalk
+  @test abs(integral(exp, 0, 1) - (exp(1) - 1)) < 1e-9
+  @test abs(integral(sin, 0, pi) - 2) < 1e-9
+
+  # ohlapnejša zahteva je še vedno izpolnjena
+  @test abs(integral(exp, 0, 1; tol=1e-6) - (exp(1) - 1)) < 1e-6
+
+  # robni primer
+  @test integral(exp, 1, 1) == 0
+end

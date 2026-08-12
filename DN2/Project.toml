@@ -1,0 +1,10 @@
+name = "DN2"
+uuid = "f410f32b-b209-428a-a833-96cf93fc7471"
+version = "0.1.0"
+authors = ["zanterplan <zan.terplan@gmail.com>"]
+
+[deps]
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+
+[compat]
+Plots = "1.41.6"

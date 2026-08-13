@@ -3,7 +3,7 @@ module DN3
 using LinearAlgebra
 using SpecialFunctions
 
-export zacetni_pogoj, magnusov_korak, resi
+export zacetni_pogoj, magnusov_korak, resi, nicle
 
 """
     zacetni_pogoj()
@@ -46,6 +46,49 @@ function resi(b, N)
     Y[:, k + 1] = magnusov_korak(x[k], Y[:, k], h)
   end
   return x, Y
+end
+
+"""
+    nicle(b, N)
+
+Poišče vse ničle funkcije Ai na intervalu [b, 0], urejene padajoče.
+"""
+function nicle(b, N)
+  b < 0 || throw(ArgumentError("b mora biti negativen"))
+  N >= 2 || throw(ArgumentError("N mora biti vsaj 2"))
+  x, Y = resi(b, N)
+  z = Float64[]
+  for k in 1:N
+    # sprememba predznaka
+    Y[1, k] * Y[1, k + 1] < 0 || continue
+    # oklepajoči interval
+    lo, hi = x[k + 1], x[k]
+    plo = sign(Y[1, k + 1])
+    t = (lo + hi) / 2
+    for _ in 1:50
+      # Ai(t) in Ai'(t) z Magnusovim korakom
+      v = magnusov_korak(x[k], Y[:, k], t - x[k])
+      # posodobi oklep
+      if sign(v[1]) == plo
+        lo = t
+      else
+        hi = t
+      end
+      # Newtonov korak
+      tn = t - v[1] / v[2]
+      # izven podintervala bisekcija
+      if !(x[k + 1] <= tn <= x[k])
+        tn = (lo + hi) / 2
+      end
+      if abs(tn - t) < 1e-13
+        t = tn
+        break
+      end
+      t = tn
+    end
+    push!(z, t)
+  end
+  return z
 end
 
 end # module DN3

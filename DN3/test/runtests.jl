@@ -60,3 +60,32 @@ end
   @test_throws ArgumentError resi(-1.0, 0)
   @test_throws ArgumentError resi(0.0, 10)
 end
+
+@testset "nicle: iskanje in natančnost" begin
+  z = nicle(-10.0, 10000)
+
+  # natanko 6 ničel
+  @test length(z) == 6
+
+  # prva ničla
+  @test z[1] ≈ -2.3381074105 atol=1e-9
+
+  # preverba z airyai
+  for zi in z
+    @test abs(airyai(zi)) < 1e-9
+  end
+
+  # konvergenca (gostejša mreža da iste ničle)
+  z2 = nicle(-10.0, 20000)
+  @test length(z2) == length(z)
+  for (a, c) in zip(z, z2)
+    @test a ≈ c atol=1e-10
+  end
+
+  # padajoče
+  @test all(diff(z) .< 0)
+
+  # validacija
+  @test_throws ArgumentError nicle(1.0, 100)
+  @test_throws ArgumentError nicle(-1.0, 1)
+end

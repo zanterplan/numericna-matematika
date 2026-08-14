@@ -68,7 +68,6 @@ function nicle(b, N)
     for _ in 1:50
       # Ai(t) in Ai'(t) z Magnusovim korakom
       v = magnusov_korak(x[k], Y[:, k], t - x[k])
-      # posodobi oklep
       if sign(v[1]) == plo
         lo = t
       else

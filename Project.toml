@@ -1,0 +1,4 @@
+[deps]
+DN3 = "49b84fb5-afed-42cc-bc8b-1049f6167dbb"
+Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
+SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
